@@ -113,10 +113,20 @@ Just as internet DNS resolves domain names to IP addresses, Merchant DNS resolve
 - Does not participate in transaction guarantees or dispute arbitration
 - Does not display anything directly to consumers
 
+### Registration Rule: One Manufacturer, One Registration
+
+Each manufacturer **can only register one API with one DNS center** at a time. Registration requires two core pieces of information:
+
+1. **API Server Address**: The root URL of the product API — essentially exposing the server address to the DNS, which queries product data from it in real-time
+2. **Product Category Declaration**: The manufacturer declares its primary product categories (e.g., "outdoor gear," "baby products"), which the DNS uses to build category indexes
+
+Once registered, the DNS broadcasts the manufacturer's information to other DNS centers via the **synchronization protocol**. If a manufacturer wants to switch DNS providers (e.g., move to one with better service), it must first deregister from the current DNS, then register with the new one. During the switch, the API address and category declaration remain unchanged — AI Agents are unaffected.
+
 ### Competition & Governance
 
 - Multiple Merchant DNS providers can coexist and compete; AI Agents can query multiple DNS providers simultaneously
-- A synchronization protocol ensures manufacturer index consistency across providers
+- Synchronization protocol ensures index consistency — once a manufacturer registers with one DNS, all DNS providers can query it
+- Manufacturers can switch DNS registration at any time (deregister → re-register), forcing DNS providers to continuously improve
 - Initially maintained by the open-source community or industry alliance; can transition to DAO governance when mature
 
 ### Operating Cost
