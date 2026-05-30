@@ -101,4 +101,4 @@ Traditional platforms extract 15–30% of GMV as a combined "traffic tax + trust
 
 ---
 
-[← Back to Main File](./AI-Shopping-Paradigm.md)
+[← Back to Main File](./README.md)

@@ -121,4 +121,4 @@ Manufacturing shifts from **"selling products"** to **"selling outcomes"** — t
 
 ---
 
-[← Back to Main File](./AI-Shopping-Paradigm.md)
+[← Back to Main File](./README.md)

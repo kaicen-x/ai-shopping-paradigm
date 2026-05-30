@@ -176,4 +176,4 @@ Service scope:
 
 ---
 
-[← Back to Main File](./AI-Shopping-Paradigm.md)
+[← Back to Main File](./README.md)

@@ -69,4 +69,4 @@ Three converging trends make this paradigm shift irreversible:
 
 ---
 
-[← Back to Main File](./AI-Shopping-Paradigm.md)
+[← Back to Main File](./README.md)

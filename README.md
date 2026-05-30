@@ -99,7 +99,7 @@ graph TD
 
 | Chapter / 章节 | English | 中文简体 |
 |---------------|---------|----------|
-| Main File / 主文件 | [AI-Shopping-Paradigm](English/AI-Shopping-Paradigm.md) | [AI购物新范式](中文简体/AI购物新范式.md) |
+| Main File / 主文件 | [AI-Shopping-Paradigm](English/README.md) | [README](中文简体/README.md) |
 | Overview / 概述与愿景 | [01-overview-and-vision](English/01-overview-and-vision.md) | [01-概述与愿景](中文简体/01-概述与愿景.md) |
 | Core Architecture / 核心架构 | [02-core-architecture](English/02-core-architecture-and-roles.md) | [02-核心架构与角色](中文简体/02-核心架构与角色.md) |
 | Business Value / 商业价值 | [03-business-value](English/03-business-value-and-model.md) | [03-商业价值与商业模式](中文简体/03-商业价值与商业模式.md) |

@@ -464,4 +464,4 @@ AI Agents store user order summaries in the cloud (for multi-device sync), but m
 
 ---
 
-[← Back to Main File](./AI-Shopping-Paradigm.md)
+[← Back to Main File](./README.md)
