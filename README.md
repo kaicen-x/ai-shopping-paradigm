@@ -106,3 +106,4 @@ graph TD
 | Commerce Transformation / 商业变革 | [04-commerce-transformation](English/04-commerce-transformation-and-new-industries.md) | [04-商业变革与新产业](中文简体/04-商业变革与新产业.md) |
 | Disruption Path / 颠覆路径 | [05-disruption-path](English/05-disruption-path-and-cold-start.md) | [05-颠覆路径与冷启动](中文简体/05-颠覆路径与冷启动.md) |
 | Future Evolution / 未来演进 | [06-future-evolution](English/06-future-evolution.md) | [06-未来演进方向](中文简体/06-未来演进方向.md) |
+| REST API / 接口定义 | [API Definitions](English/api/API-definitions.md) | [API接口定义](中文简体/api/API接口定义.md) |
