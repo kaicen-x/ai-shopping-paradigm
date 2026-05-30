@@ -2,14 +2,59 @@
 
 ## Architecture Overview
 
-| Manufacturer (Supply) | Merchant DNS (Index) | Trust & Guarantee (Guarantee) | AI Agent (Decision) | Consumer (Demand) |
-|----------------------|---------------------|------------------------------|--------------------|-------------------|
-| Self-hosted API | Metadata Indexing | Factory Certification | Semantic Parsing | Preference Settings |
-| Real-time Inventory | Unified Search | Reputation Scoring | Parallel Comparison | Confirm Order |
-| Auto-pricing | No Product Data Stored | Trust Escrow | Ranked Sort | Review |
-| | | Dispute Arbitration | Order Tracking | |
+| Manufacturer (Supply) | Merchant DNS (Index) | Reputation Cert. (Reputation) | Transaction Guarantee (Payment) | AI Agent (Decision) | Consumer (Demand)   |
+| --------------------- | -------------------- | ----------------------------- | ------------------------------- | ------------------- | ------------------- |
+| Self-hosted API       | Metadata Indexing    | Factory Certification         | Trust Escrow                    | Semantic Parsing    | Preference Settings |
+| Real-time Inventory   | Unified Search       | Reputation Scoring            | Payment & Release               | Parallel Comparison | Confirm Order       |
+| Auto-pricing          | No Product Data      | Review Management             | Dispute Arbitration             | Ranked Sort         | Review              |
+|                       |                      | Data On-chain                 |                                 | Order Tracking      |                     |
 
-> Every layer allows multiple competing providers
+> Four-Power Separation: Supply, Index, Reputation, and Payment are independent competitive layers that check and balance each other. Every layer allows multiple competing providers.
+
+---
+
+## Power Separation Architecture
+
+| Power Type         | Traditional Platform (Merged)                          | New Paradigm (Separated)                                      |
+| ------------------ | ------------------------------------------------------ | ------------------------------------------------------------- |
+| **Supply**         | Manufacturer constrained by platform rules             | Manufacturer self-hosts API, autonomous pricing               |
+| **Index**          | Platform built-in search, bidding determines exposure  | Merchant DNS, yellow-pages index only, no ads                 |
+| **Reputation**     | Platform self-evaluation, fake reviews, non-portable   | Reputation Certification Co., on-chain, migratable            |
+| **Payment**        | Platform manages own funds, referee and athlete in one | Transaction Guarantee Co., independent custody, no evaluation |
+| **Power Relation** | Four powers merged: Landlord + Referee + Athlete       | Four-Power Separation: checks and balances, closed loop       |
+
+```mermaid
+graph LR
+    subgraph OLD["Traditional: Four Powers Merged"]
+        O[Single Platform<br/>Landlord + Referee + Athlete]
+    end
+
+    subgraph NEW["New Paradigm: Four-Power Separation"]
+        N1[Supply Power<br/>Manufacturer API]
+        N2[Index Power<br/>Merchant DNS]
+        N3[Reputation Power<br/>Reputation Cert.]
+        N4[Payment Power<br/>Transaction Guarantee]
+    end
+
+    O -->|Power Decomposition| NEW
+```
+
+**Essential Difference**: Traditional platforms are "rent-collecting landlords + referee + athlete." This architecture is **open infrastructure** — every layer is a competitive market service; no single entity holds two types of power simultaneously.
+
+---
+
+## Closed Loop Logic
+
+```mermaid
+graph TD
+    A[Manufacturers pay for<br/>reputation certification<br/>Reputation = survival] --> B[Reputation Certification Co.<br/>Survives on credibility]
+    B --> C[AI Agent<br/>Gets trusted reputation data]
+    C --> D[Consumers<br/>Get transparent decisions]
+    D -->|Place order, pay| E[Transaction Guarantee Co.<br/>Fund escrow]
+    E -->|Confirm receipt| F[Manufacturer gets paid]
+    D -->|Transaction review| B
+    F -->|Keep paying for cert| A
+```
 
 ---
 
@@ -21,14 +66,14 @@ Manufacturers deploy a lightweight, standardized HTTP API to expose product data
 
 ### Technical Specification
 
-| Element | Specification |
-|---------|--------------|
-| Data Format | Standardized JSON Schema |
-| Required Fields | Product ID, name, specifications, price, inventory, multiple images, shipping options, after-sales terms |
-| Optional Fields | Video, 3D models, VR showcases, production certifications, raw material traceability |
-| API Capabilities | Query on demand, pagination, real-time inventory sync |
-| Security | OAuth2 authorization; AI Agents must carry user identity tokens |
-| Rate Limiting | Manufacturer can set API call frequency limits independently |
+| Element          | Specification                                                                                            |
+| ---------------- | -------------------------------------------------------------------------------------------------------- |
+| Data Format      | Standardized JSON Schema                                                                                 |
+| Required Fields  | Product ID, name, specifications, price, inventory, multiple images, shipping options, after-sales terms |
+| Optional Fields  | Video, 3D models, VR showcases, production certifications, raw material traceability                     |
+| API Capabilities | Query on demand, pagination, real-time inventory sync                                                    |
+| Security         | OAuth2 authorization; AI Agents must carry user identity tokens                                          |
+| Rate Limiting    | Manufacturer can set API call frequency limits independently                                             |
 
 ### Deployment Options
 
@@ -52,21 +97,21 @@ Just as internet DNS resolves domain names to IP addresses, Merchant DNS resolve
 
 ### Functionality
 
-| Function | Description |
-|----------|-------------|
-| API Registration | Indexes API root addresses of certified manufacturers |
-| Metadata Indexing | Stores metadata such as factory categories, primary product lines, geographic location |
-| Unified Search | Provides product search / filter / aggregation interfaces for AI Agent calls |
+| Function              | Description                                                                            |
+| --------------------- | -------------------------------------------------------------------------------------- |
+| API Registration      | Indexes API root addresses of certified manufacturers                                  |
+| Metadata Indexing     | Stores metadata such as factory categories, primary product lines, geographic location |
+| Unified Search        | Provides product search / filter / aggregation interfaces for AI Agent calls           |
 | Real-time Passthrough | Queries forwarded in real-time to manufacturer APIs; no persistent product data stored |
-| Short-term Caching | High-frequency query results cached briefly to reduce latency |
+| Short-term Caching    | High-frequency query results cached briefly to reduce latency                          |
 
 ### What It Does NOT Do
 
-- ❌ Does not store detailed product data
-- ❌ Does not influence search ranking
-- ❌ Does not accept advertising
-- ❌ Does not participate in transaction guarantees or dispute arbitration
-- ❌ Does not display anything directly to consumers
+- Does not store detailed product data
+- Does not influence search ranking
+- Does not accept advertising
+- Does not participate in transaction guarantees or dispute arbitration
+- Does not display anything directly to consumers
 
 ### Competition & Governance
 
@@ -76,64 +121,114 @@ Just as internet DNS resolves domain names to IP addresses, Merchant DNS resolve
 
 ### Operating Cost
 
-Extremely low: only needs to maintain API metadata indexing and search services. No need to store massive product data, images, or transaction records. A single DNS operator's running cost is a fraction of a traditional e-commerce platform's.
+Extremely low: only needs to maintain API metadata indexing and search services. No need to store massive product data, images, or transaction records.
 
 ---
 
-## 2.3 Trust & Guarantee Companies — Trust Provider
+## 2.3 Reputation Certification Company — Reputation Layer
 
 ### Definition
 
-An independent **fourth-party neutral institution**, separate from manufacturers, AI Agents, and Merchant DNS, providing factory certification, reputation scoring, transaction guarantee, and dispute arbitration.
+An independent **fourth-party neutral evaluation institution**, separate from manufacturers, AI Agents, and Transaction Guarantee Companies. Handles everything related to "reputation": factory certification, dynamic reputation scoring, review data management. **Never touches funds.**
+
+### Core Principle: Power Separation
+
+Reputation Certification Companies and Transaction Guarantee Companies **must be separated** — the evaluator never touches money, the money handler never evaluates. This is the cornerstone of checks and balances in the entire architecture.
 
 ### Core Services
 
 #### Factory Certification
+
 - On-site or remote audit of factory qualifications, production capacity, and quality systems
 - Tiered certification: Basic / Deep / Real-time Monitoring
 - Certification results written to reputation ledger and are tamper-proof
 
 #### Dynamic Reputation Scoring
+
 - Inputs: historical transaction data, return rates, delivery timeliness, encrypted consumer review signatures
 - Algorithm is transparent, publicly documented, and auditable
 - Manufacturer violations (false descriptions, delayed shipping, material mismatch) trigger score deductions
 - Malicious returns / negative reviews by consumers are also flagged to protect manufacturers
 
-#### Trust Escrow Guarantee
+#### Review Management
+
+- Collects and verifies encrypted, signed consumer reviews
+- Anti-fraud: each review is bound to a unique transaction hash
+- Provides real-time reputation query APIs for AI Agents
+
+#### Data Storage Architecture
+
+- **Raw data on-chain**: reputation score hashes, certification records, transaction review hashes — immutable
+- **Detailed data local storage**: specific review content, factory audit report details — privacy-protected, cost-effective
+- **Manufacturer data migration**: manufacturers can migrate their reputation profile to another certification company at any time, **migration is charged**
+- Migration fees paid by the receiving company (new certifier) or manufacturer, creating competitive pricing
+
+### Revenue Model
+
+| Revenue Source                        | Description                                                             |
+| ------------------------------------- | ----------------------------------------------------------------------- |
+| Manufacturer Annual Certification Fee | Tiered by certification level                                           |
+| Reputation Query API Call Fee         | Per-query charge to AI Agents or Guarantee Companies                    |
+| Data Migration Fee                    | Charged when manufacturer moves reputation profile to another certifier |
+
+### Competition Mechanism
+
+- Multiple reputation certification companies can coexist and compete
+- AI Agents can compare reputation scores across multiple certifiers
+- Credibility is the core asset — one falsified score, permanent market exit
+- Manufacturers can migrate with their reputation data, forcing certifiers to continuously improve service quality
+
+---
+
+## 2.4 Transaction Guarantee Company — Payment Layer
+
+### Definition
+
+An independent **fourth-party fund custodian**, separate from manufacturers, AI Agents, and Reputation Certification Companies. **Only handles fund-related operations**: trust escrow, payment collection and release, dispute arbitration, preemptive payout. **Never participates in evaluation.**
+
+### Core Principle: Power Separation
+
+Transaction Guarantee Companies can only view reputation scores provided by Reputation Certification Companies, with no authority to modify them. Dispute arbitration is based on transaction facts (logistics records, chat records) with reputation as a reference — never on the guarantee company's own subjective judgment.
+
+### Core Services
+
+#### Trust Escrow
+
 - User payment enters a trust escrow account (not directly to the manufacturer)
 - Funds released to the manufacturer upon user receipt confirmation
 - Auto-release after timeout to protect manufacturers from malicious delays
-- Trust company bears the legal liability for fund custody
+- Transaction Guarantee Company bears the legal liability for fund custody
 
 #### Dispute Arbitration & Preemptive Payout
-- User or manufacturer files a complaint with the trust company
-- Trust company adjudicates liability
+
+- User or manufacturer files a complaint with the guarantee company
+- Ruling based on transaction facts (logistics delivery records, product description matching)
+- References reputation scores from certification companies for both parties
 - User wins: preemptive payout to user, then recovery from manufacturer
 - Manufacturer wins: complaint dismissed, funds released
 
 #### Quality Insurance
+
 - Authenticity insurance and quality insurance for high-value goods
 - Premium paid by manufacturer; payout executed by underwriter
 
-### Competition Mechanism
-
-- Multiple trust companies can coexist; users or AI Agents can choose among them
-- AI Agents can evaluate trust companies based on historical arbitration fairness rates, payout speed, etc.
-- Trust companies face **reputation competition** — a company that favors manufacturers loses consumers; one that favors consumers loses manufacturers
-- Market-driven competitive pressure forces trust companies to remain neutral
-
 ### Revenue Model
 
-| Revenue Source | Rate |
-|---------------|------|
-| Manufacturer annual certification fee | Tiered by certification level |
-| Transaction guarantee fee | 0.5% – 2% of transaction value |
-| Dispute processing fee | Prepaid by complainant; loser pays |
-| Quality insurance commission | Premium share |
+| Revenue Source            | Rate                                              |
+| ------------------------- | ------------------------------------------------- |
+| Transaction Guarantee Fee | 0.5% – 2% of transaction value                    |
+| Dispute Processing Fee    | Prepaid by complainant; loser pays                |
+| Escrow Interest           | Interest income from funds held in trust accounts |
+
+### Competition Mechanism
+
+- Multiple transaction guarantee companies can coexist and compete
+- AI Agents recommend based on guarantee fee rates, payout speed, and dispute fairness history
+- Guarantee companies themselves never evaluate reputation — eliminating conflict of interest
 
 ---
 
-## 2.4 Client-Side AI Agent
+## 2.5 Client-Side AI Agent — Decision Layer
 
 ### Forms
 
@@ -146,39 +241,46 @@ An independent **fourth-party neutral institution**, separate from manufacturers
 ### Core Capabilities
 
 #### Semantic Understanding
+
 User inputs natural language: "Find me a waterproof, breathable hiking jacket under 300, rated 4+ stars" — the AI Agent extracts category, budget, functional requirements, and trust thresholds.
 
-#### Parallel Price Comparison
+#### Parallel Query
+
 - Queries Merchant DNS for matching manufacturer API lists
 - Parallel requests to all qualifying manufacturer product APIs
-- Simultaneously queries trust company APIs for reputation scores and guarantee eligibility
-- Completes cross-network price comparison in seconds
+- Simultaneously queries Reputation Certification APIs for reputation scores
+- Simultaneously queries Transaction Guarantee APIs for guarantee rates and eligibility
+- Completes cross-network comparison in seconds
 
 #### Weighted Ranking
+
 Consumer pre-sets preference weights:
+
 - Price-first: lowest price ranks highest
 - Performance-first: best key specs rank highest
 - Reputation-first: highest trust scores rank highest
+- Guarantee-first: fastest payout, lowest fees rank highest
 - Comprehensive: AI auto-learns from user history
 
 #### One-Click Ordering
+
 - Confirms product and generates order
-- User pays into trust company's escrow account
+- User selects transaction guarantee company, pays into trust escrow
 - Notifies manufacturer to prepare and ship
 - Auto-tracks logistics status
 - Records shopping preferences for future optimization
 
 ### Business Model
 
-| Plan | Description |
-|------|-------------|
-| Free for Consumers | Basic features free; premium features (multi-trust comparison, auto-ordering) via subscription |
-| Manufacturer API Call Fee | Minimal per-transaction charge to manufacturer (far below traditional ad costs) |
-| Referral Commission | Optional: small referral fee per completed transaction |
+| Plan                      | Description                                                     |
+| ------------------------- | --------------------------------------------------------------- |
+| Free for Consumers        | Basic features free; premium features via subscription          |
+| Manufacturer API Call Fee | Minimal per-transaction charge (far below traditional ad costs) |
+| Referral Commission       | Optional: small referral fee per completed transaction          |
 
 ### Competition
 
-Multiple AI Agent developers coexist and compete; users can switch freely. The competitive moat is no longer capital-burning user acquisition but recommendation accuracy, interaction fluency, and the ability to learn user preferences.
+Multiple AI Agent developers coexist and compete; users can switch freely. The competitive moat is recommendation accuracy, interaction fluency, and the ability to learn user preferences — not capital-burning user acquisition.
 
 ---
 
@@ -186,29 +288,37 @@ Multiple AI Agent developers coexist and compete; users can switch freely. The c
 
 ```mermaid
 flowchart TD
- A[User's Natural Language Request] --> B[AI Agent Parses Intent]
- B --> C[Merchant DNS Queries for API Addresses]
- C --> D[Parallel Call: Product APIs + Trust Company APIs]
- D --> E[Aggregate: Price + Inventory + Reputation + Guarantee]
- E --> F[AI Agent Ranks by User Weights]
- F --> G{Confirm Order?}
- G -->|No| A
- G -->|Yes| H[Payment to Trust Escrow]
- H --> I[Trust Company Notifies Manufacturer]
- I --> J{Receipt Status}
- J -->|Confirmed / Timeout| K[Release Funds to Manufacturer]
- J -->|Dispute| L[Trust Company Arbitration]
- L -->|User Wins| M[Preemptive Refund]
- L -->|Manufacturer Wins| K
+    A[User Input / 用户需求] --> B[AI Agent<br/>Parse Intent / 解析意图]
+    B --> C[Merchant DNS<br/>Query API Addresses]
+    C --> D[Parallel Query]
+    D --> D1[Manufacturer Product API<br/>Price + Inventory + Specs]
+    D --> D2[Reputation Certification API<br/>Reputation Score]
+    D --> D3[Transaction Guarantee API<br/>Guarantee Rate]
+    D1 --> E[Aggregate All Data]
+    D2 --> E
+    D3 --> E
+    E --> F[AI Agent<br/>Rank by User Weights]
+    F --> G{Confirm Order?}
+    G -->|No| A
+    G -->|Yes| H[Select Guarantee Co.<br/>Pay to Trust Escrow]
+    H --> I[Guarantee Co. Notifies Shipment]
+    I --> J{Receipt Status}
+    J -->|Confirmed / Timeout| K[Guarantee Co. Releases Funds]
+    J -->|Dispute| L[Guarantee Co. Arbitration]
+    L -->|User Wins| M[Preemptive Refund]
+    L -->|Manufacturer Wins| K
+    K --> N[User Review<br/>Reputation Cert. Co. Records]
+    M --> N
 ```
 
 ### Flow Highlights
 
 1. **Users never face any manufacturer directly** — the AI Agent is the sole interactive interface
-2. **Product data and trust data are fetched in parallel** — no mutual dependency, ensuring query speed
-3. **Funds remain in the trust escrow throughout** — manufacturers never touch the money before receipt confirmation
-4. **Disputes are adjudicated by independent third parties** — the platform is never its own judge
-5. **Reviews are encrypted and signed**, bound to a trust company, tamper-proof, and traceable
+2. **Product, reputation, and guarantee data are fetched in parallel** — no mutual dependency, ensuring query speed
+3. **Reputation and payment are completely separated**: Certification Co. manages reputation, Guarantee Co. manages funds
+4. **Funds remain in the trust escrow throughout** — manufacturers never touch the money before receipt confirmation
+5. **Disputes are adjudicated by independent guarantee companies**, referencing reputation scores from certification companies
+6. **Reviews are encrypted and signed**, bound to a certification company, on-chain anchored, immutable, and traceable
 
 ---
 
