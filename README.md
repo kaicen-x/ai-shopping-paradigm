@@ -1,8 +1,8 @@
 # AI Shopping Paradigm / AI购物新范式
 
-> A **transaction revolution** that rebuilds global commerce from the **protocol layer** up — separating power into four independent, competitive layers: supply, index, reputation, and payment.
+> **Integrity and quality run through every link.** A **transaction revolution** that rebuilds commercial trust from the **protocol layer** up — five powers separated, every action verifiable on-chain, trust as a competitive market service.
 >
-> 从 **底层协议** 重构全球商业的 **交易革命** —— 将权力拆分为供给、索引、评价、资金四个独立竞争层，互相制衡。
+> **诚信与品质贯穿全流程。** 从 **底层协议** 重构商业信任的 **交易革命** —— 五权分立，链上可验证，诚信成为可竞争的市场化服务。
 
 ---
 
@@ -77,9 +77,9 @@ flowchart TD
 | **AI Agent** | Decision / 决策 | Semantic comparison, weighted ranking, multi-provider / 语义比价、权重排序，多家竞争 |
 | **Consumer** / 消费者 | Demand / 需求 | Set preferences, confirm receipt, review / 设定偏好，确认收货，评价反馈 |
 
-> Evaluation never touches money. Money never evaluates. Supply doesn't index. Index doesn't advertise — **Four-Power Separation**.
+> Evaluation never touches money. Money never evaluates. Supply doesn't index. Index doesn't advertise. Decision doesn't take a cut. — **Five-Power Separation**.
 >
-> 评价的不碰钱，碰钱的不评价，供给的不做索引，做索引的不卖广告 —— **四权分立**。
+> 评价不碰钱，资金不评价，供给不索引，索引不广告，决策不抽成 —— **五权分立**。
 
 ---
 
